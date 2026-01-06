@@ -875,6 +875,26 @@ class ImageHelper
          */
         $destination_path = \apply_filters('timber/image/new_path', $destination_path);
 
+        /**
+         * Filters to check if an image exists virtually (e.g., on CDN).
+         *
+         * Allows CDN offload plugins to short-circuit the file existence check
+         * when the resized image exists on external storage. Return a URL to
+         * skip the file_exists() check entirely, or null to continue with
+         * normal filesystem checking.
+         *
+         * @since 2.4.0
+         *
+         * @param string|null $virtual_url      Return a URL to short-circuit, or null to continue.
+         * @param string      $source_path      Full path to the source image.
+         * @param string      $destination_path Full path where the resized image would be saved.
+         * @param string      $new_url          The URL that would be returned for the resized image.
+         */
+        $virtual_url = \apply_filters('timber/image/virtual_exists', null, $source_path, $destination_path, $new_url);
+        if ($virtual_url !== null) {
+            return $virtual_url;
+        }
+
         // if already exists...
         if (\file_exists($source_path) && \file_exists($destination_path)) {
             if ($force || \filemtime($source_path) > \filemtime($destination_path)) {
