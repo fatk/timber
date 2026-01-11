@@ -81,7 +81,7 @@ class Pagination
 
         $args['type'] = 'array';
         $args['current'] = \max(1, $paged);
-        $args['mid_size'] = 2;
+        $args['mid_size'] = 0;
         if (\is_int($prefs)) {
             $args['mid_size'] = $prefs - 2;
         } else {
