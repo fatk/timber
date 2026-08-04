@@ -31,8 +31,7 @@
     "php": ">=7.2.5 || ^8.0",
     "twig/twig": "^1.44.7 || ^2.10 || ^3.0",
     "upstatement/routes": "^0.9",
-    "composer/installers": "^1.0 || ^2.0",
-    "twig/cache-extra": "^3"
+    "composer/installers": "^1.0 || ^2.0"
   },
   "require-dev": {
     "wpackagist-plugin/advanced-custom-fields": "^5.0",
@@ -40,7 +39,8 @@
     "yoast/wp-test-utils": "^1.0"
   },
   "suggest": {
-    "satooshi/php-coveralls": "1.0.* for code coverage"
+    "satooshi/php-coveralls": "1.0.* for code coverage",
+    "twig/cache-extension": "^1.5 to enable the {% cache %} tag in Twig templates"
   },
   "autoload": {
     "psr-4": {

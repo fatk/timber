@@ -179,7 +179,17 @@ class Loader {
 				return null;
 			}));
 		}
-		$twig->addExtension($this->_get_cache_extension());
+		/**
+		 * The `{% cache %}` tag is provided by the abandoned twig/cache-extension
+		 * package, which is only a suggested dependency. Skip registration when it
+		 * is absent so the loader stays usable without it, and allow themes to opt
+		 * out via the filter in order to register a cache extension of their own.
+		 */
+		$enable_cache_extension = apply_filters('timber/cache/enable_extension', true);
+
+		if ( $enable_cache_extension && class_exists('Twig\CacheExtension\Extension') ) {
+			$twig->addExtension($this->_get_cache_extension());
+		}
 
 		$twig = apply_filters('twig_apply_filters', $twig);
 		$twig = apply_filters('timber/twig/filters', $twig);
